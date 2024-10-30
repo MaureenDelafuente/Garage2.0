@@ -96,8 +96,19 @@ namespace Garage2._0.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id")] Vehicle vehicle)
+        public async Task<IActionResult> Edit(int id, VehicleEditViewModel vehicleViewModel)
         {
+            var vehicle = new Vehicle
+            {
+                Id = vehicleViewModel.Id,
+                VehicleType = vehicleViewModel.VehicleType,
+                RegisterNumber = vehicleViewModel.RegisterNumber,
+                Color = vehicleViewModel.Color,
+                Brand = vehicleViewModel.Brand,
+                Model = vehicleViewModel.Model,
+                NumberOfWheels = vehicleViewModel.NumberOfWheels
+            };
+
             if (id != vehicle.Id)
             {
                 return NotFound();
@@ -121,7 +132,7 @@ namespace Garage2._0.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(VehiclesList));
             }
             return View(vehicle);
         }
