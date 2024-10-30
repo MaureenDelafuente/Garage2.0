@@ -2,6 +2,7 @@
 
 public class VehicleDetailsViewModel
 {
+    public int Id { get; set; }
     public string RegisterNumber { get; set; }
 
     public string VehicleType { get; set; }

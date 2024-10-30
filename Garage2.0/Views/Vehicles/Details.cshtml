@@ -1,4 +1,4 @@
-﻿@model Garage2._0.Models.Entites.Vehicle
+﻿@model Garage2._0.Models.ViewModels.VehicleDetailsViewModel 
 
 @{
     ViewData["Title"] = "Details";
@@ -10,9 +10,37 @@
     <h4>Vehicle</h4>
     <hr />
     <dl class="row">
+        <div>
+            @Model.Id
+
+        </div>
+        <div>
+            @Model.RegisterNumber
+
+        </div>
+        <div>
+            @Model.VehicleType
+
+        </div>
+        <div>
+            @Model.Color
+
+        </div>
+        <div>
+            @Model.Brand
+
+        </div>
+        <div>
+            @Model.Model
+
+        </div>
+        <div>
+            @Model.NumberOfWheels
+
+        </div>
     </dl>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="VehiclesList">Back to List</a>
 </div>

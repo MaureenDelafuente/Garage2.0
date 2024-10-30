@@ -50,7 +50,19 @@ namespace Garage2._0.Controllers
                 return NotFound();
             }
 
-            return View(vehicle);
+            var viewModel = new VehicleDetailsViewModel
+                {
+                    Id = vehicle.Id,
+                    RegisterNumber = vehicle.RegisterNumber,
+                    VehicleType = vehicle.VehicleType,
+                    Color = vehicle.Color,
+                    Brand = vehicle.Brand,
+                    Model = vehicle.Model,
+                    NumberOfWheels = vehicle.NumberOfWheels,
+                    ArrivalTime = vehicle.ArrivalTime,
+                    CheckoutTime = vehicle.CheckoutTime
+                };
+            return View(viewModel);
         }
 
         // GET: Vehicles/Create
@@ -72,6 +84,7 @@ namespace Garage2._0.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(vehicle);
         }
 
@@ -88,6 +101,7 @@ namespace Garage2._0.Controllers
             {
                 return NotFound();
             }
+
             return View(vehicle);
         }
 
@@ -121,8 +135,10 @@ namespace Garage2._0.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(vehicle);
         }
 
