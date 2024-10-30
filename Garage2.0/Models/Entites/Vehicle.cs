@@ -3,21 +3,21 @@
     public class Vehicle
     {
         public int Id { get; set; }
-        string RegisterNumber { get; set; }
+        public string RegisterNumber { get; set; }
 
-        string VehicleType {  get; set; }
+        public string VehicleType {  get; set; }
 
-        string Color { get; set; }
+        public string Color { get; set; }
 
-        string Brand {  get; set; }
+        public string Brand {  get; set; }
 
-        string Model {  get; set; }
+        public string Model {  get; set; }
 
-        int NumberOfWheels { get; set; }
+        public int NumberOfWheels { get; set; }
 
-        DateTime ArrivalTime { get; set; }
+        public DateTime ArrivalTime { get; set; }
 
-        DateTime CheckoutTime { get; set; }
+        public DateTime CheckoutTime { get; set; }
 
     }
 }
