@@ -53,11 +53,6 @@ namespace Garage2._0.Controllers
             return View(vehicle);
         }
 
-        // GET: Vehicles/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
         // GET: Vehicles/CheckIn
         public IActionResult CheckIn()
         {
