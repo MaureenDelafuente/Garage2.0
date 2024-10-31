@@ -58,19 +58,25 @@ namespace Garage2._0.Controllers
         {
             return View();
         }
-
-        // POST: Vehicles/Create
+        // GET: Vehicles/CheckIn
+        public IActionResult CheckIn()
+        {
+            return View();
+        }
+        
+        // POST: Vehicles/CheckIn
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id")] Vehicle vehicle)
+        public async Task<IActionResult> CheckIn([Bind("Id,RegisterNumber,VehicleType,Color,Brand,Model,NumberOfWheels")] Vehicle vehicle)
         {
+            vehicle.ArrivalTime = DateTime.Now;// Added so we automatically get the checkin time
             if (ModelState.IsValid)
             {
                 _context.Add(vehicle);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(VehiclesList));
             }
             return View(vehicle);
         }
@@ -170,8 +176,9 @@ namespace Garage2._0.Controllers
         }
 
 
-        // GET: Vehicles/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: Vehicles/CheckOut/5
+        public async Task<IActionResult> CheckOut(int? id)
+
         {
             if (id == null)
             {
@@ -188,15 +195,17 @@ namespace Garage2._0.Controllers
             return View(vehicle);
         }
 
-        // POST: Vehicles/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // POST: Vehicles/CheckOut/5
+        [HttpPost, ActionName("CheckOut")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> CheckOutConfirmed(int id)
         {
             var vehicle = await _context.Vehicle.FindAsync(id);
             if (vehicle != null)
             {
-                _context.Vehicle.Remove(vehicle);
+                //_context.Vehicle.Remove(vehicle); changed to next line
+                vehicle.CheckoutTime = DateTime.Now;// we dont remove it so we can see the vechile and its checkout time
+
             }
 
             await _context.SaveChangesAsync();
