@@ -58,19 +58,25 @@ namespace Garage2._0.Controllers
         {
             return View();
         }
-
-        // POST: Vehicles/Create
+        // GET: Vehicles/CheckIn
+        public IActionResult CheckIn()
+        {
+            return View();
+        }
+        
+        // POST: Vehicles/CheckIn
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id")] Vehicle vehicle)
+        public async Task<IActionResult> CheckIn([Bind("Id,RegisterNumber,VehicleType,Color,Brand,Model,NumberOfWheels")] Vehicle vehicle)
         {
+            vehicle.ArrivalTime = DateTime.Now;// Added so we automatically get the checkin time
             if (ModelState.IsValid)
             {
                 _context.Add(vehicle);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(VehiclesList));
             }
             return View(vehicle);
         }
