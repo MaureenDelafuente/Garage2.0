@@ -143,8 +143,8 @@ namespace Garage2._0.Controllers
             return View(vehicle);
         }
 
-        // GET: Vehicles/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: Vehicles/CheckOut/5
+        public async Task<IActionResult> CheckOut(int? id)
         {
             if (id == null)
             {
@@ -161,15 +161,17 @@ namespace Garage2._0.Controllers
             return View(vehicle);
         }
 
-        // POST: Vehicles/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // POST: Vehicles/CheckOut/5
+        [HttpPost, ActionName("CheckOut")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> CheckOutConfirmed(int id)
         {
             var vehicle = await _context.Vehicle.FindAsync(id);
             if (vehicle != null)
             {
-                _context.Vehicle.Remove(vehicle);
+                //_context.Vehicle.Remove(vehicle); changed to next line
+                vehicle.CheckoutTime = DateTime.Now;// we dont remove it so we can see the vechile and its checkout time
+
             }
 
             await _context.SaveChangesAsync();
