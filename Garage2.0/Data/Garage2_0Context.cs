@@ -13,7 +13,7 @@ namespace Garage2._0.Data
             : base(options)
         {
         }
-
+        /*
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -28,7 +28,7 @@ namespace Garage2._0.Data
                new Vehicle { Id = 7, RegisterNumber = "XZS 376", Brand = "BMW", Color = "GREEN", Model = "X5", NumberOfWheels = 4, VehicleType = VehicleType.Car, ArrivalTime = DateTime.Parse("2024-10-30"), CheckoutTime = DateTime.Parse("2024-10-31") }
                );
         }
-
+        */
         public DbSet<Garage2._0.Models.Entites.Vehicle> Vehicle { get; set; } = default!;
     }
 }
