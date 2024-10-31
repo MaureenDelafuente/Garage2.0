@@ -88,7 +88,27 @@ namespace Garage2._0.Controllers
             {
                 return NotFound();
             }
-            return View(vehicle);
+
+            var vehicleEditViewModel = new VehicleEditViewModel
+            {
+                Id = vehicle.Id,
+                RegisterNumber = vehicle.RegisterNumber,
+                Color = vehicle.Color,
+                Brand = vehicle.Brand,
+                Model = vehicle.Model,
+                NumberOfWheels = vehicle.NumberOfWheels,
+                VehicleType = vehicle.VehicleType,
+                VehicleTypes = Enum.GetValues(typeof(VehicleType))
+           .Cast<VehicleType>()
+           .Select(v => new SelectListItem
+           {
+               Value = ((int)v).ToString(),
+               Text = v.ToString()
+           }).ToList()
+            };
+
+
+            return View(vehicleEditViewModel);
         }
 
         // POST: Vehicles/Edit/5
@@ -103,16 +123,20 @@ namespace Garage2._0.Controllers
 
             if (ModelState.IsValid)
             {
-                var vehicle = new Vehicle
+                // Fetch the original vehicle from the database
+                var vehicle = await _context.Vehicle.FindAsync(id);
+                if (vehicle == null)
                 {
-                    Id = vehicleViewModel.Id,
-                    RegisterNumber = vehicleViewModel.RegisterNumber,
-                    Color = vehicleViewModel.Color,
-                    Brand = vehicleViewModel.Brand,
-                    Model = vehicleViewModel.Model,
-                    NumberOfWheels = vehicleViewModel.NumberOfWheels,
-                    VehicleType = vehicleViewModel.VehicleType
-                };
+                    return NotFound();
+                }
+
+                // Update the vehicle properties
+                vehicle.RegisterNumber = vehicleViewModel.RegisterNumber;
+                vehicle.Color = vehicleViewModel.Color;
+                vehicle.Brand = vehicleViewModel.Brand;
+                vehicle.Model = vehicleViewModel.Model;
+                vehicle.NumberOfWheels = vehicleViewModel.NumberOfWheels;
+                vehicle.VehicleType = vehicleViewModel.VehicleType;
 
                 try
                 {
@@ -132,6 +156,15 @@ namespace Garage2._0.Controllers
                 }
                 return RedirectToAction(nameof(VehiclesList));
             }
+
+            // Repopulate the VehicleTypes in case of validation errors
+            vehicleViewModel.VehicleTypes = Enum.GetValues(typeof(VehicleType))
+                .Cast<VehicleType>()
+                .Select(v => new SelectListItem
+                {
+                    Value = ((int)v).ToString(),
+                    Text = v.ToString()
+                }).ToList();
 
             return View(vehicleViewModel);
         }

@@ -14,7 +14,5 @@ namespace Garage2._0.Models.ViewModels
         public string Brand { get; set; }
         public string Model { get; set; }
         public int NumberOfWheels { get; set; }
-
-       
     }
 }
