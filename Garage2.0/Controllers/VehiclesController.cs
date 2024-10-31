@@ -167,7 +167,7 @@ namespace Garage2._0.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(VehiclesList));
         }
 
         private bool VehicleExists(int id)
