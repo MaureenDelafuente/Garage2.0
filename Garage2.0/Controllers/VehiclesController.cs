@@ -53,17 +53,24 @@ namespace Garage2._0.Controllers
             return View(vehicle);
         }
 
-        // GET: Vehicles/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
         // GET: Vehicles/CheckIn
         public IActionResult CheckIn()
         {
-            return View();
+            var viewModel = new VehicleCheckinViewModel
+            {
+                VehicleTypes = Enum.GetValues(typeof(VehicleType))
+                    .Cast<VehicleType>()
+                    .Select(v => new SelectListItem
+                    {
+                        Text = v.ToString(),
+                        Value = v.ToString()
+                    })
+                    .ToList()
+            };
+
+            return View(viewModel);
         }
-        
+
         // POST: Vehicles/CheckIn
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
