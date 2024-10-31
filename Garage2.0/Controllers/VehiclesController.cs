@@ -30,7 +30,7 @@ namespace Garage2._0.Controllers
                 RegisterNumber = e.RegisterNumber,
                 ArrivalTime = e.ArrivalTime,
                 Color = e.Color,
-                Brand = e.Brand
+                Brand = e.Brand,
             });
             return View(await model.ToListAsync());
         }
@@ -94,34 +94,56 @@ namespace Garage2._0.Controllers
             {
                 return NotFound();
             }
-            return View(vehicle);
+
+            var vehicleEditViewModel = new VehicleEditViewModel
+            {
+                Id = vehicle.Id,
+                RegisterNumber = vehicle.RegisterNumber,
+                Color = vehicle.Color,
+                Brand = vehicle.Brand,
+                Model = vehicle.Model,
+                NumberOfWheels = vehicle.NumberOfWheels,
+                VehicleType = vehicle.VehicleType,
+                VehicleTypes = Enum.GetValues(typeof(VehicleType))
+           .Cast<VehicleType>()
+           .Select(v => new SelectListItem
+           {
+               Value = ((int)v).ToString(),
+               Text = v.ToString()
+           }).ToList()
+            };
+
+
+            return View(vehicleEditViewModel);
         }
 
         // POST: Vehicles/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, VehicleEditViewModel vehicleViewModel)
         {
-            var vehicle = new Vehicle
-            {
-                Id = vehicleViewModel.Id,
-                VehicleType = vehicleViewModel.VehicleType,
-                RegisterNumber = vehicleViewModel.RegisterNumber,
-                Color = vehicleViewModel.Color,
-                Brand = vehicleViewModel.Brand,
-                Model = vehicleViewModel.Model,
-                NumberOfWheels = vehicleViewModel.NumberOfWheels
-            };
-
-            if (id != vehicle.Id)
+            if (id != vehicleViewModel.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
+                // Fetch the original vehicle from the database
+                var vehicle = await _context.Vehicle.FindAsync(id);
+                if (vehicle == null)
+                {
+                    return NotFound();
+                }
+
+                // Update the vehicle properties
+                vehicle.RegisterNumber = vehicleViewModel.RegisterNumber;
+                vehicle.Color = vehicleViewModel.Color;
+                vehicle.Brand = vehicleViewModel.Brand;
+                vehicle.Model = vehicleViewModel.Model;
+                vehicle.NumberOfWheels = vehicleViewModel.NumberOfWheels;
+                vehicle.VehicleType = vehicleViewModel.VehicleType;
+
                 try
                 {
                     _context.Update(vehicle);
@@ -140,11 +162,23 @@ namespace Garage2._0.Controllers
                 }
                 return RedirectToAction(nameof(VehiclesList));
             }
-            return View(vehicle);
+
+            // Repopulate the VehicleTypes in case of validation errors
+            vehicleViewModel.VehicleTypes = Enum.GetValues(typeof(VehicleType))
+                .Cast<VehicleType>()
+                .Select(v => new SelectListItem
+                {
+                    Value = ((int)v).ToString(),
+                    Text = v.ToString()
+                }).ToList();
+
+            return View(vehicleViewModel);
         }
+
 
         // GET: Vehicles/CheckOut/5
         public async Task<IActionResult> CheckOut(int? id)
+
         {
             if (id == null)
             {
