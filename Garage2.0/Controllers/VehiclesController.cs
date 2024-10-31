@@ -175,6 +175,11 @@ namespace Garage2._0.Controllers
             return View(vehicleViewModel);
         }
 
+        private bool VehicleExists(int id)
+        {
+            return _context.Vehicle.Any(e => e.Id == id);
+        }
+
 
         // GET: Vehicles/CheckOut/5
         public async Task<IActionResult> CheckOut(int? id)
@@ -212,9 +217,40 @@ namespace Garage2._0.Controllers
             return RedirectToAction(nameof(VehiclesList));
         }
 
-        private bool VehicleExists(int id)
+        // GET: Vehicles/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+
         {
-            return _context.Vehicle.Any(e => e.Id == id);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var vehicle = await _context.Vehicle
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (vehicle == null)
+            {
+                return NotFound();
+            }
+
+            return View(vehicle);
         }
+
+        // POST: Vehicles/Delete/5
+        [HttpPost, ActionName("Confirm")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var vehicle = await _context.Vehicle.FindAsync(id);
+            if (vehicle != null)
+            {
+                _context.Vehicle.Remove(vehicle); 
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(VehiclesList));
+        }
+
+
     }
 }
