@@ -30,7 +30,7 @@ namespace Garage2._0.Controllers
                 RegisterNumber = e.RegisterNumber,
                 ArrivalTime = e.ArrivalTime,
                 Color = e.Color,
-                Brand = e.Brand
+                Brand = e.Brand,
             });
             return View(await model.ToListAsync());
         }
@@ -92,30 +92,28 @@ namespace Garage2._0.Controllers
         }
 
         // POST: Vehicles/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, VehicleEditViewModel vehicleViewModel)
         {
-            var vehicle = new Vehicle
-            {
-                Id = vehicleViewModel.Id,
-                VehicleType = vehicleViewModel.VehicleType,
-                RegisterNumber = vehicleViewModel.RegisterNumber,
-                Color = vehicleViewModel.Color,
-                Brand = vehicleViewModel.Brand,
-                Model = vehicleViewModel.Model,
-                NumberOfWheels = vehicleViewModel.NumberOfWheels
-            };
-
-            if (id != vehicle.Id)
+            if (id != vehicleViewModel.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
+                var vehicle = new Vehicle
+                {
+                    Id = vehicleViewModel.Id,
+                    RegisterNumber = vehicleViewModel.RegisterNumber,
+                    Color = vehicleViewModel.Color,
+                    Brand = vehicleViewModel.Brand,
+                    Model = vehicleViewModel.Model,
+                    NumberOfWheels = vehicleViewModel.NumberOfWheels,
+                    VehicleType = vehicleViewModel.VehicleType
+                };
+
                 try
                 {
                     _context.Update(vehicle);
@@ -134,8 +132,10 @@ namespace Garage2._0.Controllers
                 }
                 return RedirectToAction(nameof(VehiclesList));
             }
-            return View(vehicle);
+
+            return View(vehicleViewModel);
         }
+
 
         // GET: Vehicles/Delete/5
         public async Task<IActionResult> Delete(int? id)
