@@ -46,7 +46,7 @@
 
                     <div class="form-group  my-3">
                         <label asp-for="NumberOfWheels" class="control-label"></label>
-                        <input asp-for="NumberOfWheels" class="form-control" style="width: 100%;" />
+                        <input asp-for="NumberOfWheels" class="form-control" style="width: 100%;" min="1" type="number"  />
                         <span asp-validation-for="NumberOfWheels" class="text-danger"></span>
                     </div>
 
