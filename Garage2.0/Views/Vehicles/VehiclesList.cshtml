@@ -12,7 +12,7 @@
 
 <form asp-action="Filter" method="get">
     <div class="input-group my-5">
-        <input type="text" class="form-control"placeholder="Search on registration number" asp-for="RegisterNumber" />
+        <input type="text" class="form-control" placeholder="Search on registration number" asp-for="RegisterNumber" />
         <div class="input-group-append">
             <select class="form-control" asp-for="VehicleType" asp-items="@Model.VehicleTypes">
                 <option selected="selected" value="">Please select</option>
