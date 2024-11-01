@@ -266,7 +266,7 @@ namespace Garage2._0.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(VehiclesList));
+            return RedirectToAction(nameof(Receipt), new {id});
         }
 
         // GET: Vehicles/Delete/5
@@ -303,6 +303,28 @@ namespace Garage2._0.Controllers
             return RedirectToAction(nameof(VehiclesList));
         }
 
+        // GET: Vehicles/Receipt/5
+        public async Task<IActionResult> Receipt(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var vehicle = await _context.Vehicle
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (vehicle == null)
+            {
+                return NotFound();
+            }
+
+            var receiptViewModel = new ReceiptViewModel
+            {
+                RegisterNumber = vehicle.RegisterNumber,
+                ArrivalTime = vehicle.ArrivalTime,
+                CheckOutTime = vehicle.CheckoutTime,
+            };
+            return View(receiptViewModel);
+        }
     }
 }
