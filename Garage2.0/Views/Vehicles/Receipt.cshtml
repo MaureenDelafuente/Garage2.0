@@ -1,0 +1,55 @@
+﻿@model Garage2._0.Models.ViewModels.ReceiptViewModel
+
+@{
+    ViewData["Title"] = "Receipt";
+}
+
+<h1>Receipt: </h1>
+
+<div>
+
+    <h4>Vehicle</h4>
+    <hr />
+    <dl class="row">
+    </dl>
+</div>
+
+<div class="card bg-light">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-2">
+                Registration number
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.RegisterNumber)
+            </dd>
+            <dt class="col-sm-2">
+                Time of arrival
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ArrivalTime)
+            </dd>
+            <dt class="col-sm-2">
+                Time of check out
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CheckOutTime)
+            </dd>
+            <dt class="col-sm-2">
+                Period parked
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ParkingPeriod, "TimeSpan")
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Price) kr
+            </dd>
+        </dl>
+    </div>
+</div>
+<div>
+    <a asp-action="VehiclesList">Back to List</a>
+</div>
