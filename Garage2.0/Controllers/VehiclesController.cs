@@ -116,22 +116,48 @@ namespace Garage2._0.Controllers
             return View(viewModel);
         }
 
+       
         // POST: Vehicles/CheckIn
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CheckIn([Bind("Id,RegisterNumber,VehicleType,Color,Brand,Model,NumberOfWheels")] Vehicle vehicle)
+        public async Task<IActionResult> CheckIn(VehicleCheckinViewModel viewModel)
         {
-            vehicle.ArrivalTime = DateTime.Now;// Added so we automatically get the checkin time
+            if (_context.Vehicle.Any(v => v.RegisterNumber == viewModel.RegisterNumber))
+            {
+                ModelState.AddModelError("RegisterNumber", "This registration number already exists.");
+            }
+
             if (ModelState.IsValid)
             {
+                var vehicle = new Vehicle
+                {
+                    Id = viewModel.Id,
+                    RegisterNumber = viewModel.RegisterNumber,
+                    VehicleType = viewModel.VehicleType,
+                    Color = viewModel.Color,
+                    Brand = viewModel.Brand,
+                    Model = viewModel.Model,
+                    NumberOfWheels = viewModel.NumberOfWheels,
+                    ArrivalTime = DateTime.Now // automatically set check-in time
+                };
+
                 _context.Add(vehicle);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(VehiclesList));
             }
-            return View(vehicle);
+
+            viewModel.VehicleTypes = Enum.GetValues(typeof(VehicleType))
+                .Cast<VehicleType>()
+                .Select(v => new SelectListItem
+                {
+                    Text = v.ToString(),
+                    Value = v.ToString()
+                }).ToList();
+
+            // Return the view with validation errors if ModelState is invalid
+            return View(viewModel);
         }
+
 
         // GET: Vehicles/Edit/5
         public async Task<IActionResult> Edit(int? id)

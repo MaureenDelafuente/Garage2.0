@@ -32,32 +32,36 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.VehicleType)
+                    @item.VehicleType
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.RegisterNumber)
+                    @item.RegisterNumber.ToUpper()
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ArrivalTime)
+                    @item.ArrivalTime
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Color)
+                    @System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(item.Color.ToLower())
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Brand)
+                    @System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(item.Brand.ToLower())
                 </td>
                 <td>
-                    <a class="btn edit-btn" asp-action="Edit" asp-route-id="@item.Id">
-                        
-                      </a> |
-
-                    <a class="btn details-btn "  asp-action="Details" asp-route-id="@item.Id">
-           
-                     </a>|
-                    <a class="btn delete-btn" asp-action="Delete" asp-route-id="@item.Id"></a>|
-                    <a class="btn check-out-btn" asp-action="CheckOut" asp-route-id="@item.Id"></a>
+                    <a class="btn icon-btn edit-btn" asp-action="Edit" asp-route-id="@item.Id">
+                        Edit
+                    </a> |
+                    <a class="btn icon-btn details-btn" asp-action="Details" asp-route-id="@item.Id">
+                        Details
+                    </a> |
+                    <a class="btn icon-btn delete-btn" asp-action="Delete" asp-route-id="@item.Id">
+                        Delete
+                    </a> |
+                    <a class="btn icon-btn check-out-btn" asp-action="CheckOut" asp-route-id="@item.Id">
+                        Check Out
+                    </a>
                 </td>
             </tr>
+
         }
     </tbody>
 </table>
