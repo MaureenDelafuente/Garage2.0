@@ -1,76 +1,71 @@
-﻿@model Garage2._0.Models.Entites.Vehicle
-
+﻿@model Garage2._0.Models.ViewModels.VehicleDetailsViewModel
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Parking vehicle details: </h1>
 
-<div>
-    
-    <h4>Vehicle</h4>
-    <hr />
-    <dl class="row">
-    </dl>
-</div>
 
-<div class="card bg-light">
-    <div class="card-body">
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.VehicleType)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.VehicleType)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Brand)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Brand)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Model)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Model)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.RegisterNumber)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.RegisterNumber)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Color)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Color)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.NumberOfWheels)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.NumberOfWheels)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.ArrivalTime)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.ArrivalTime)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.CheckoutTime)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.CheckoutTime)
-            </dd>
-        </dl>
-        <div>
-            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-            <a asp-action="VehiclesList">Back to List</a>
+<div class="d-flex flex-column align-items-center align-items-center">
+    <h1 class="text-center text-secondary my-4">Parking vehicle details </h1>
+    <div class="card bg-light d-flex align-items-center p-4 mt-4" style="width: 55rem;">
+        <div class="card-body" style=" width: 35rem;">
+            <dl class="row">
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.VehicleType)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.VehicleType)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Brand)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Brand)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Model)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Model)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.RegisterNumber)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.RegisterNumber)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Color)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Color)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.NumberOfWheels)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.NumberOfWheels)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.ArrivalTime)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.ArrivalTime)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.CheckoutTime)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.CheckoutTime)
+                </dd>
+            </dl>
+            <div class="d-flex align-items-center gap-1 my-3 mt-4">
+
+                <a class="pe-3" asp-action="VehiclesList">Back to List</a>
+
+                <a class="btn btn-primary px-3" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
+            </div>
         </div>
-        </div>
+    </div>
 
-  
 </div>

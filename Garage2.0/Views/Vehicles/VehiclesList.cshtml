@@ -1,64 +1,28 @@
-﻿@model IEnumerable<Garage2._0.Models.ViewModels.VehicleListViewModel>
+﻿@model Garage2._0.Models.ViewModels.VehicleListViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h3>Parking Details</h3>
+<h1 class="text-center text-secondary my-4">Vehicles in Garage</h1>
 
 <p>
-    <a asp-action="CheckIn">Vehicle Check In</a>
-    
+    <a asp-action="CheckIn" class="btn btn-success my-5"> Check In</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.VehicleType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RegisterNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ArrivalTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Color)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Brand)
-            </th>
-            <th>
 
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.VehicleType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RegisterNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ArrivalTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Color)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Brand)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
-                    <a asp-action="CheckOut" asp-route-id="@item.Id">Check Out</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<form asp-action="Filter" method="get">
+    <div class="input-group my-5">
+        <input type="text" class="form-control" placeholder="Search on registration number" asp-for="RegisterNumber" />
+        <div class="input-group-append">
+            <select class="form-control" asp-for="VehicleType" asp-items="@Model.VehicleTypes">
+                <option selected="selected" value="">Please select</option>
+            </select>
+        </div>
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-secondary">Search</button>
+        </div>
+    </div>
+</form>
+
+ <partial name="_VehicleListPartial" model="@Model.Vehicles" /> 
+

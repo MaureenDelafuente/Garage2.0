@@ -4,6 +4,8 @@ namespace Garage2._0.Models.ViewModels;
 
 public class VehicleDetailsViewModel
 {
+
+    public int Id { get; set; }
     public string RegisterNumber { get; set; }
 
     public VehicleType? VehicleType { get; set; }
@@ -18,5 +20,5 @@ public class VehicleDetailsViewModel
 
     public DateTime ArrivalTime { get; set; }
 
-    public DateTime CheckoutTime { get; set; }
+    public string CheckoutTime { get; set; }
 }
