@@ -43,8 +43,20 @@ namespace Garage2._0.Controllers
                 return NotFound();
             }
 
-            var vehicle = await _context.Vehicle
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var vehicle = await _context.Vehicle.Where(e => e.Id == id).Select(v => new VehicleDetailsViewModel
+            {
+                Id = v.Id,
+                RegisterNumber = v.RegisterNumber,
+                VehicleType = v.VehicleType,
+                Brand = v.Brand,
+                Model = v.Model,
+                Color = v.Color,
+                NumberOfWheels = v.NumberOfWheels,
+                ArrivalTime = v.ArrivalTime,
+                CheckoutTime = v.CheckoutTime == DateTime.MinValue ? "Vehicle is still in parking" : v.CheckoutTime.ToString("yyyy-MM-dd HH:mm:ss")
+            })
+            .FirstOrDefaultAsync();
+
             if (vehicle == null)
             {
                 return NotFound();
