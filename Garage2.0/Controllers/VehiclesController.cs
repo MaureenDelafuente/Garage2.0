@@ -23,17 +23,50 @@ namespace Garage2._0.Controllers
         // GET: Vehicles
         public async Task<IActionResult> VehiclesList()
         {
-            var model = _context.Vehicle.Select(e => new VehicleListViewModel
+            var vehicles = await _context.Vehicle.ToListAsync();
+
+            var model = new VehicleListViewModel
             {
-                Id = e.Id,
-                VehicleType = e.VehicleType,
-                RegisterNumber = e.RegisterNumber,
-                ArrivalTime = e.ArrivalTime,
-                Color = e.Color,
-                Brand = e.Brand,
-            });
-            return View(await model.ToListAsync());
+                Vehicles = vehicles,
+                VehicleTypes = vehicles.Select(m => m.VehicleType)
+                .Distinct()
+                .Select(g => new SelectListItem
+                {
+                    Text = g.ToString(),
+                    Value = g.ToString()
+                })
+                .ToList()
+            };
+
+            return View(model);
         }
+
+        public async Task<IActionResult> Filter(VehicleListViewModel viewModel)
+        {
+            var vehicles = string.IsNullOrWhiteSpace(viewModel.RegisterNumber) ?
+                _context.Vehicle :
+                _context.Vehicle.Where(m => m.RegisterNumber.Contains(viewModel.RegisterNumber));
+
+            vehicles = viewModel.VehicleType is null ?
+                vehicles :
+                vehicles.Where(m => m.VehicleType == viewModel.VehicleType);
+
+            var model = new VehicleListViewModel
+            {
+                Vehicles = await vehicles.ToListAsync(),
+                VehicleTypes = Enum.GetValues(typeof(VehicleType))
+                    .Cast<VehicleType>()
+                    .Select(v => new SelectListItem
+                    {
+                        Text = v.ToString(),
+                        Value = v.ToString()
+                    })
+                    .ToList()
+            };
+
+            return View(nameof(VehiclesList), model);
+        }
+
 
         // GET: Vehicles/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -263,7 +296,7 @@ namespace Garage2._0.Controllers
             var vehicle = await _context.Vehicle.FindAsync(id);
             if (vehicle != null)
             {
-                _context.Vehicle.Remove(vehicle); 
+                _context.Vehicle.Remove(vehicle);
             }
 
             await _context.SaveChangesAsync();

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Garage2._0.Models.Entites.Vehicle>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.VehicleType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RegisterNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArrivalTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Brand)
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VehicleType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegisterNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArrivalTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Color)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Brand)
+                </td>
+                <td>
+                    <a class="btn edit-btn" asp-action="Edit" asp-route-id="@item.Id">
+                        
+                      </a> |
+
+                    <a class="btn details-btn "  asp-action="Details" asp-route-id="@item.Id">
+           
+                     </a>|
+                    <a class="btn delete-btn" asp-action="Delete" asp-route-id="@item.Id"></a>|
+                    <a class="btn check-out-btn" asp-action="CheckOut" asp-route-id="@item.Id"></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
