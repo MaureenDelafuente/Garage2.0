@@ -317,15 +317,14 @@ namespace Garage2._0.Controllers
             {
                 return NotFound();
             }
+
             var receiptViewModel = new ReceiptViewModel
             {
                 RegisterNumber = vehicle.RegisterNumber,
                 ArrivalTime = vehicle.ArrivalTime,
                 CheckOutTime = vehicle.CheckoutTime,
-                
             };
             return View(receiptViewModel);
         }
-
     }
 }
