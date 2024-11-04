@@ -4,6 +4,7 @@ public class ReceiptViewModel
 {
     public const double Priceperminute = 0.5;
 
+    public int Id { get; set; }
     public string RegisterNumber { get; set; }
 
     public DateTime ArrivalTime { get; set; }
