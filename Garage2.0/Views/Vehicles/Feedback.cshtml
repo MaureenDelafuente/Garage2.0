@@ -1,0 +1,47 @@
+﻿
+
+@{
+    ViewData["Title"] = "Receipt";
+}
+
+<div class="d-flex flex-column align-items-center">
+    <h1 class="text-center text-secondary my-4">Help us to be better</h1>
+
+
+    <form class="mt-4">
+        <div class="form-group">
+            <label>How likely are you to recommend us to your friends?</label>
+            <div class="rating-input-wrapper d-flex justify-content-between ">
+                @for (int i = 1; i <= 10; i++)
+                {
+                    <label class="px-1 my-3" >
+                        <input type="radio" name="rating" value="@i" class="d-none" />
+                        <span class="border rounded px-3 py-2 rating-option">@i</span>
+                    </label>
+
+                    
+                }
+            </div>
+            <div class="rating-labels d-flex justify-content-between mt-1">
+                <label>Very unlikely</label>
+                <label>Very likely</label>
+            </div>
+        </div>
+        <div class="form-group my-4">
+            <label for="input-one">What is your name?</label>
+            <input type="text" class="form-control" id="input-one" placeholder="">
+        </div>
+        <div class="form-group">
+            <label for="input-two">Would you like to say something?</label>
+            <textarea class="form-control" id="input-two" rows="3"></textarea>
+        </div>
+        <div class="mt-4">
+            <a class="pe-3" asp-action="VehiclesList">Back to List</a>
+            <button type="button" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+
+
+
+
