@@ -21,9 +21,48 @@ namespace Garage2._0.Controllers
         }
 
         // GET: Vehicles
-        public async Task<IActionResult> VehiclesList()
+        public async Task<IActionResult> VehiclesList(string sortOrder)
         {
+            ViewData["VehicleTypeSortParam"] = sortOrder == "VehicleType" ? "VehicleTypeDesc" : "VehicleType";
+            ViewData["RegisterNumberSortParam"] = sortOrder == "RegisterNumber" ? "RegisterNumberDesc" : "RegisterNumber";
+            ViewData["ArrivalTimeSortParam"] = sortOrder == "ArrivalTime" ? "ArrivalTimeDesc" : "ArrivalTime";
+            ViewData["ColorSortParam"] = sortOrder == "Color" ? "ColorDesc" : "Color";
+            ViewData["BrandSortParam"] = sortOrder == "Brand" ? "BrandDesc" : "Brand";
+
             var vehicles = await _context.Vehicle.ToListAsync();
+            switch (sortOrder)
+            {
+                case "VehicleType":
+                    vehicles = vehicles.OrderBy(v => Enum.GetName(typeof(VehicleType), v.VehicleType)).ToList();
+                    break;
+                case "VehicleTypeDesc":
+                    vehicles = vehicles.OrderByDescending(v => Enum.GetName(typeof(VehicleType), v.VehicleType)).ToList();
+                    break;
+                case "RegisterNumber":
+                    vehicles = vehicles.OrderBy(v => v.RegisterNumber).ToList();
+                    break;
+                case "RegisterNumberDesc":
+                    vehicles = vehicles.OrderByDescending(v => v.RegisterNumber).ToList();
+                    break;
+                case "ArrivalTime":
+                    vehicles = vehicles.OrderBy(v => v.ArrivalTime).ToList();
+                    break;
+                case "ArrivalTimeDesc":
+                    vehicles = vehicles.OrderByDescending(v => v.ArrivalTime).ToList();
+                    break;
+                case "Color":
+                    vehicles = vehicles.OrderBy(v => v.Color).ToList();
+                    break;
+                case "ColorDesc":
+                    vehicles = vehicles.OrderByDescending(v => v.Color).ToList();
+                    break;
+                case "Brand":
+                    vehicles = vehicles.OrderBy(v => v.Brand).ToList();
+                    break;
+                case "BrandDesc":
+                    vehicles = vehicles.OrderByDescending(v => v.Brand).ToList();
+                    break;
+            }
 
             var model = new VehicleListViewModel
             {

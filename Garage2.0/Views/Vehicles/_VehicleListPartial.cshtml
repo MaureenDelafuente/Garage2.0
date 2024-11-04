@@ -8,19 +8,29 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.VehicleType)
+                <a asp-action="VehiclesList" asp-route-sortOrder="@ViewData["VehicleTypeSortParam"]">
+                    @Html.DisplayNameFor(model => model.VehicleType)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RegisterNumber)
+                <a asp-action="VehiclesList" asp-route-sortOrder="@ViewData["RegisterNumberSortParam"]">
+                    @Html.DisplayNameFor(model => model.RegisterNumber)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ArrivalTime)
+                <a asp-action="VehiclesList" asp-route-sortOrder="@ViewData["ArrivalTimeSortParam"]">
+                    @Html.DisplayNameFor(model => model.ArrivalTime)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Color)
+                <a asp-action="VehiclesList" asp-route-sortOrder="@ViewData["ColorSortParam"]">
+                    @Html.DisplayNameFor(model => model.Color)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Brand)
+                <a asp-action="VehiclesList" asp-route-sortOrder="@ViewData["BrandSortParam"]">
+                    @Html.DisplayNameFor(model => model.Brand)
+                </a>
             </th>
             <th>
 
