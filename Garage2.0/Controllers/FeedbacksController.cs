@@ -50,20 +50,31 @@ namespace Garage2._0.Controllers
         }
 
         // POST: Feedbacks/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,VehicleId,UserName,Rating,FeedbackMessage")] Feedback feedback)
+        public async Task<IActionResult> Create([Bind("Id, VehicleId,UserName,Rating,FeedbackMessage")] Feedback feedback)
         {
-            if (ModelState.IsValid)
+            if (feedback.Id == null || feedback.Id == 0)
             {
-                _context.Add(feedback);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                TempData["ErrorMessage"] = "Something went wrong: Invalid feedback ID.";
+                return View(feedback);
             }
+          
+                var newFeedback = new Feedback
+                {
+
+                    VehicleId = feedback.Id,
+                    UserName = feedback.UserName,
+                    Rating = feedback.Rating,
+                    FeedbackMessage = feedback.FeedbackMessage
+                };
+
+                _context.Add(newFeedback);
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Feedback submitted successfully!";
             return View(feedback);
         }
+
 
         // GET: Feedbacks/Edit/5
         public async Task<IActionResult> Edit(int? id)

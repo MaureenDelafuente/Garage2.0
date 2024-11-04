@@ -8,18 +8,17 @@
     <h1 class="text-center text-secondary my-4">Help us to be better</h1>
 
 
-    <form class="mt-4">
+    <form class="mt-4" asp-controller="Feedbacks" asp-action="Create">
+        <input type="hidden" asp-for="VehicleId" value="@Model?.Id" />
         <div class="form-group">
             <label>How likely are you to recommend us to your friends?</label>
             <div class="rating-input-wrapper d-flex justify-content-between ">
                 @for (int i = 1; i <= 10; i++)
                 {
-                    <label class="px-1 my-3">
-                        <input type="radio" name="rating" value="@i" class="d-none" />
+                    <label class="px-1 my-3" asp-for="Rating">
+                        <input type="radio" asp-for="Rating" name="Rating" value="@i" class="d-none" />
                         <span class="border rounded px-3 py-2 rating-option">@i</span>
                     </label>
-
-
                 }
             </div>
             <div class="rating-labels d-flex justify-content-between mt-1">
@@ -28,20 +27,44 @@
             </div>
         </div>
         <div class="form-group my-4">
-            <label for="input-one">What is your name?</label>
-            <input type="text" class="form-control" id="input-one" placeholder="">
+            <label asp-for="UserName">What is your name?</label>
+            <input type="text" class="form-control" asp-for="UserName" placeholder="">
         </div>
         <div class="form-group">
-            <label for="input-two">Would you like to say something?</label>
-            <textarea class="form-control" id="input-two" rows="3"></textarea>
+            <label asp-for="FeedbackMessage">Would you like to say something?</label>
+            <textarea class="form-control" asp-for="FeedbackMessage" rows="3"></textarea>
         </div>
         <div class="mt-4">
             <a class="pe-3" asp-controller="Vehicles" asp-action="VehiclesList">Back to List</a>
-            <button type="button" class="btn btn-primary">Submit</button>
+            <input type="submit" class="btn btn-primary">
         </div>
+
+
+        <!-- Display Success Message -->
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show mt-4" role="alert">
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        <!-- Display Error Message -->
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert">
+                @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
     </form>
 </div>
 
+
+
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
