@@ -69,3 +69,16 @@ body {
 .delete-btn:hover {
     background-color: #dc3545;
 }
+
+input[type="radio"] {
+    display: none;
+}
+
+.rating-option {
+    cursor: pointer;
+}
+
+input[type="radio"]:checked + .rating-option {
+    background-color: #0d6efd; 
+    color: white; 
+}
