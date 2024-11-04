@@ -12,12 +12,12 @@
         <input type="hidden" asp-for="VehicleId" value="@Model?.Id" />
         <div class="form-group">
             <label>How likely are you to recommend us to your friends?</label>
-            <div class="rating-input-wrapper d-flex justify-content-between ">
+            <div class="rating-input-wrapper d-flex justify-content-between my-3">
                 @for (int i = 1; i <= 10; i++)
                 {
-                    <label class="px-1 my-3" asp-for="Rating">
-                        <input type="radio" asp-for="Rating" name="Rating" value="@i" class="d-none" />
-                        <span class="border rounded px-3 py-2 rating-option">@i</span>
+                    <label>
+                        <input type="radio" name="rating" value="@i" class="d-none" />
+                        <span class="border rounded px-3 py-2  rating-option">@i</span>
                     </label>
                 }
             </div>
