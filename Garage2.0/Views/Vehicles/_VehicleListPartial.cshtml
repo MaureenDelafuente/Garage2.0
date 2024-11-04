@@ -56,19 +56,23 @@
                 <td>
                     @System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(item.Brand.ToLower())
                 </td>
-                <td>
+                <td class="text-end">
                     <a class="btn icon-btn edit-btn" asp-action="Edit" asp-route-id="@item.Id">
                         Edit
                     </a> |
                     <a class="btn icon-btn details-btn" asp-action="Details" asp-route-id="@item.Id">
                         Details
                     </a> |
-                    <a class="btn icon-btn delete-btn" asp-action="Delete" asp-route-id="@item.Id">
-                        Delete
-                    </a> |
+                    
                     <a class="btn icon-btn check-out-btn" asp-action="CheckOut" asp-route-id="@item.Id">
                         Check Out
-                    </a>
+                    </a>|
+                    <a class="btn icon-btn feedback-btn" asp-controller="Feedbacks" asp-action="Create" asp-route-id="@item.Id">
+                        Check Out
+                    </a>|
+                    <a class="btn icon-btn delete-btn" asp-action="Delete" asp-route-id="@item.Id">
+                        Delete
+                    </a> 
                 </td>
             </tr>
 
