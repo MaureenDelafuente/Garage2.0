@@ -401,11 +401,30 @@ namespace Garage2._0.Controllers
 
             var receiptViewModel = new ReceiptViewModel
             {
+                Id = vehicle.Id,
                 RegisterNumber = vehicle.RegisterNumber,
                 ArrivalTime = vehicle.ArrivalTime,
                 CheckOutTime = vehicle.CheckoutTime,
             };
             return View(receiptViewModel);
+        }
+
+
+        // GET: Vehicles/Feedback/5
+        public async Task<IActionResult> Feedback(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var model = new Feedback
+            {
+                Id = id.Value
+            };
+           
+            
+            return View(model);
         }
     }
 }
