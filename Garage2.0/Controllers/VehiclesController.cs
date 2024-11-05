@@ -198,7 +198,8 @@ namespace Garage2._0.Controllers
 
                 _context.Add(vehicle);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(VehiclesList));
+                // after check-in go to details of that vehicle so user can see it is parked
+                return RedirectToAction(nameof(Details), new {id = vehicle.Id});
             }
 
             viewModel.VehicleTypes = Enum.GetValues(typeof(VehicleType))
