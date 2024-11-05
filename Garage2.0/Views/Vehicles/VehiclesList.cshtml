@@ -13,6 +13,20 @@
 <form asp-action="Filter" method="get">
     <div class="input-group my-5">
         <input type="text" class="form-control" placeholder="Search on registration number" asp-for="RegisterNumber" />
+        <input type="text" class="form-control" placeholder="Search on color" asp-for="Color" list="colors" />
+        <input type="text" class="form-control" placeholder="Search on brand" asp-for="Brand" list="brands" />
+        <datalist id="colors">   @* from an example *@
+            @foreach (var color in ViewData["Colors"] as List<string>)
+            {
+                <option value="@color"></option>
+            }
+        </datalist>
+        <datalist id="brands">
+            @foreach (var brand in ViewData["Brands"] as List<string>)
+            {
+                <option value="@brand"></option>
+            }
+        </datalist>
         <div class="input-group-append">
             <select class="form-control" asp-for="VehicleType" asp-items="@Model.VehicleTypes">
                 <option selected="selected" value="">Please select</option>

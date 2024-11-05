@@ -64,6 +64,11 @@ namespace Garage2._0.Controllers
                     break;
             }
 
+            var colors = vehicles.Select(v => v.Color).Distinct().ToList();
+            var brands = vehicles.Select(v => v.Brand).Distinct().ToList();
+            ViewData["Colors"] = colors;
+            ViewData["Brands"] = brands;
+
             var model = new VehicleListViewModel
             {
                 Vehicles = vehicles,
@@ -89,6 +94,17 @@ namespace Garage2._0.Controllers
             vehicles = viewModel.VehicleType is null ?
                 vehicles :
                 vehicles.Where(m => m.VehicleType == viewModel.VehicleType);
+            vehicles = string.IsNullOrWhiteSpace(viewModel.Color)
+                ? vehicles
+                : vehicles.Where(m => m.Color.Contains(viewModel.Color));
+            vehicles = string.IsNullOrWhiteSpace(viewModel.Brand)
+                ? vehicles
+                : vehicles.Where(m => m.Brand.Contains(viewModel.Brand));
+
+            var colors =vehicles.Select(v => v.Color).Distinct().ToList();
+            var brands =vehicles.Select(v => v.Brand).Distinct().ToList();
+            ViewData["Colors"] = colors;
+            ViewData["Brands"] = brands;
 
             var model = new VehicleListViewModel
             {
