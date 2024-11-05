@@ -4,45 +4,75 @@
     ViewData["Title"] = "Index";
 }
 
+
 <h1 class="text-center text-secondary my-4">User Testimonials</h1>
 
-<div class="container mt-5 mb-5">
-    <div class="row g-2">
-        @foreach (var item in Model)
+<div id="carouselUserReviews" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        @for (int i = 0; i < (Model.Count() + 2) / 3; i++) // Calculate number of slides needed
         {
-            <div class="col-md-4">
-                <div class="card shadow-sm  rounded p-3 text-center px-4">
-                    <div class="user-image mb-3">
-                    
-                        <a href="https://imgur.com/jEtedsn"><img src="https://i.imgur.com/jEtedsn.png" class="rounded-circle" width="80" title="source: imgur.com" /></a>
-                    </div>
-                    <div class="user-content">
-                        <h4 class="mb-0 text-secondary"> @Html.DisplayFor(modelItem => item.UserName)</h4>
-                        <p class="mb-0">@Html.DisplayFor(modelItem => item.FeedbackMessage)</p>
-                    </div>
-                    <div class="ratings">
-                        @if (int.TryParse(item.Rating, out int ratingValue))
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")" aria-current="@(i == 0 ? "true" : "false")" aria-label="Slide @(@i + 1)"></button>
+        }
+    </div>
+    <div class="carousel-inner">
+        @for (int slideIndex = 0; slideIndex < (Model.Count() + 2) / 3; slideIndex++)
+        {
+            <div class="carousel-item @(slideIndex == 0 ? "active" : "")">
+                <div class="container mt-5 mb-5">
+                    <div class="row g-2">
+                        @for (int cardIndex = 0; cardIndex < 3; cardIndex++)
                         {
-                            for (int i = 1; i <= ratingValue; i++)
+                            int currentIndex = slideIndex * 3 + cardIndex;
+                            if (currentIndex < Model.Count())
                             {
-                                <span class="rating-star"></span> 
+                                var item = Model.ElementAt(currentIndex); // Get the item based on the current index
+                                <div class="col-md-4">
+                                    <div class="card shadow-sm rounded p-3 text-center px-4">
+                                        <div class="user-image mb-3">
+                                            <a href="https://imgur.com/jEtedsn">
+                                                <img src="https://i.imgur.com/jEtedsn.png" class="rounded-circle" width="80" title="source: imgur.com" />
+                                            </a>
+                                        </div>
+                                        <div class="user-content">
+                                            <h4 class="mb-0 text-secondary">@Html.DisplayFor(modelItem => item.UserName)</h4>
+                                            <p class="mb-0">@Html.DisplayFor(modelItem => item.FeedbackMessage)</p>
+                                        </div>
+                                        <div class="ratings">
+                                            @if (int.TryParse(item.Rating, out int ratingValue))
+                                            {
+                                                for (int i = 1; i <= ratingValue; i++)
+                                                {
+                                                    <span class="rating-star"></span>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">No rating</span>
+                                            }
+                                            <span class="ms-2"> (@item.Rating / 10)</span>
+                                        </div>
+                                        <div class="mt-3">
+                                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
                             }
                         }
-                        else
-                        {
-                            <span class="text-muted">No rating</span> 
-                        }
-                        <span class="ms-2"> (@item.Rating / 10)</span>
-
-                    </div>
-                    <div class="mt-3">
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     </div>
                 </div>
             </div>
         }
     </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
 </div>
+
 

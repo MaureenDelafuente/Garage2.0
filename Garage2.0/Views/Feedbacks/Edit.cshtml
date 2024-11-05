@@ -4,46 +4,48 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<div class="d-flex flex-column align-items-center">
+    <h1 class="text-center text-secondary my-4">Edit Feedback</h1>
+    <div>
+    <hr />
+        <div class="row justify-content-center">
+            <div class="" style="width:20vw">
+                <form asp-action="Edit" style="width: 100%">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                    <div class="form-group  my-3">
+                    <label asp-for="VehicleId" class="control-label"></label>
+                    <input asp-for="VehicleId" class="form-control" />
+                    <span asp-validation-for="VehicleId" class="text-danger"></span>
+                </div>
+                    <div class="form-group  my-3">
+                    <label asp-for="UserName" class="control-label"></label>
+                    <input asp-for="UserName" class="form-control" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                    <div class="form-group  my-3">
+                    <label asp-for="Rating" class="control-label"></label>
+                    <input asp-for="Rating" class="form-control" />
+                    <span asp-validation-for="Rating" class="text-danger"></span>
+                </div>
+                    <div class="form-group  my-3">
+                    <label asp-for="FeedbackMessage" class="control-label"></label>
+                    <input asp-for="FeedbackMessage" class="form-control" />
+                    <span asp-validation-for="FeedbackMessage" class="text-danger"></span>
+                </div>
+                    <div class="form-group my-5">
+                        <a class="pe-3" asp-action="Index">Back to All Feedbacks</a>
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+            </form>
+        </div>
+    </div>
 
-<h4>Feedback</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="VehicleId" class="control-label"></label>
-                <input asp-for="VehicleId" class="form-control" />
-                <span asp-validation-for="VehicleId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Rating" class="control-label"></label>
-                <input asp-for="Rating" class="form-control" />
-                <span asp-validation-for="Rating" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FeedbackMessage" class="control-label"></label>
-                <input asp-for="FeedbackMessage" class="form-control" />
-                <span asp-validation-for="FeedbackMessage" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

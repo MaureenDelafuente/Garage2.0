@@ -4,18 +4,19 @@
     ViewData["Title"] = "Index";
 }
 
-<h1 class="text-center text-secondary my-4">Vehicles in Garage</h1>
+<div class="container">
+    <h1 class="text-center text-secondary my-4">Vehicles in Garage</h1>
 
-<p>
-    <a asp-action="CheckIn" class="btn btn-success my-5"> Check In</a>
-</p>
+    <p>
+        <a asp-action="CheckIn" class="btn btn-success my-5"> Check In</a>
+    </p>
 
 <form asp-action="Filter" method="get">
     <div class="input-group my-5">
         <input type="text" class="form-control" placeholder="Search on registration number" asp-for="RegisterNumber" />
         <input type="text" class="form-control" placeholder="Search on color" asp-for="Color" list="colors" />
         <input type="text" class="form-control" placeholder="Search on brand" asp-for="Brand" list="brands" />
-        <datalist id="colors">   @* from an example *@
+        <datalist id="colors">  
             @foreach (var color in ViewData["Colors"] as List<string>)
             {
                 <option value="@color"></option>
@@ -38,5 +39,6 @@
     </div>
 </form>
 
- <partial name="_VehicleListPartial" model="@Model.Vehicles" /> 
+    <partial name="_VehicleListPartial" model="@Model.Vehicles" />
 
+</div>
