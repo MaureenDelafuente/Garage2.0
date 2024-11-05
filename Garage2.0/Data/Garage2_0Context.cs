@@ -30,5 +30,6 @@ namespace Garage2._0.Data
         }
         */
         public DbSet<Garage2._0.Models.Entites.Vehicle> Vehicle { get; set; } = default!;
+        public DbSet<Garage2._0.Models.Entites.Feedback> Feedback { get; set; } = default!;
     }
 }

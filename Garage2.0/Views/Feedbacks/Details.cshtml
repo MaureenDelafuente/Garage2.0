@@ -1,0 +1,43 @@
+﻿@model Garage2._0.Models.Entites.Feedback
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="d-flex flex-column align-items-center align-items-center">
+    <h1 class="text-center text-secondary my-4">Feedback Details </h1>
+    <div class="card bg-light d-flex align-items-center p-4 mt-4" style="width: 55rem;">
+        <div class="card-body" style=" width: 35rem;">
+            <dl class="row">
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.VehicleId)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.VehicleId)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.UserName)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.UserName)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Rating)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Rating)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.FeedbackMessage)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.FeedbackMessage)
+                </dd>
+            </dl>
+            <div class="d-flex align-items-center gap-1 my-3 mt-4">
+                <a class="pe-3" asp-action="Index">Back to All Feedbacks</a>
+                <a class="btn btn-primary px-3" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
+            </div>
+        </div>
+    </div>
+</div>

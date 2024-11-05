@@ -4,52 +4,34 @@
     ViewData["Title"] = "Receipt";
 }
 
-<h1>Receipt: </h1>
+<div class="d-flex flex-column align-items-center">
+    <h1 class="text-center text-secondary my-4">Receipt</h1>
+    <div class="card bg-light d-flex align-items-center p-4 mt-4" style="width: 55rem;">
+        <div class="card-body" style="width: 35rem;">
+            <dl class="row">
+                <dt class="col-sm-6">Registration number</dt>
+                <dd class="col-sm-6">@Html.DisplayFor(model => model.RegisterNumber)</dd>
 
-<div>
+                <dt class="col-sm-6">Time of arrival</dt>
+                <dd class="col-sm-6">@Html.DisplayFor(model => model.ArrivalTime)</dd>
 
-    <h4>Vehicle</h4>
-    <hr />
-    <dl class="row">
-    </dl>
-</div>
+                <dt class="col-sm-6">Time of check out</dt>
+                <dd class="col-sm-6">@Html.DisplayFor(model => model.CheckOutTime)</dd>
 
-<div class="card bg-light">
-    <div class="card-body">
-        <dl class="row">
-            <dt class="col-sm-2">
-                Registration number
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.RegisterNumber)
-            </dd>
-            <dt class="col-sm-2">
-                Time of arrival
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.ArrivalTime)
-            </dd>
-            <dt class="col-sm-2">
-                Time of check out
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.CheckOutTime)
-            </dd>
-            <dt class="col-sm-2">
-                Period parked
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.ParkingPeriod, "TimeSpan")
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Price)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Price) kr
-            </dd>
-        </dl>
+                <dt class="col-sm-6">Period parked</dt>
+                <dd class="col-sm-6">@Html.DisplayFor(model => model.ParkingPeriod, "TimeSpan")</dd>
+
+                <dt class="col-sm-6">@Html.DisplayNameFor(model => model.Price)</dt>
+                <dd class="col-sm-6">@Html.DisplayFor(model => model.Price) kr</dd>
+            </dl>
+            <div class="d-flex align-items-center gap-1 my-3 mt-4">
+                <a class="pe-3" asp-action="VehiclesList">Back to List</a>
+                <a class="btn btn-primary px-3" asp-controller="Feedbacks" asp-action="Create" asp-route-id="@Model?.Id">Leave a feedback</a>
+            </div>
+        </div>
     </div>
+
+
 </div>
-<div>
-    <a asp-action="VehiclesList">Back to List</a>
-</div>
+
+

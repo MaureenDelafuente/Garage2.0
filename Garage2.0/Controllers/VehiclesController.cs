@@ -401,6 +401,7 @@ namespace Garage2._0.Controllers
 
             var receiptViewModel = new ReceiptViewModel
             {
+                Id = vehicle.Id,
                 RegisterNumber = vehicle.RegisterNumber,
                 ArrivalTime = vehicle.ArrivalTime,
                 CheckOutTime = vehicle.CheckoutTime,
