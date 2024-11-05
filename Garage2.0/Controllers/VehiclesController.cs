@@ -198,7 +198,7 @@ namespace Garage2._0.Controllers
 
                 _context.Add(vehicle);
                 await _context.SaveChangesAsync();
-                // after check-in go to details of that vehicle so user can see it is parked
+                // Feedback > after check-in go to details of that vehicle so user can see it is parked
                 return RedirectToAction(nameof(Details), new {id = vehicle.Id});
             }
 
