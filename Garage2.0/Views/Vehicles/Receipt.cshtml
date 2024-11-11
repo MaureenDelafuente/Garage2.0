@@ -27,6 +27,7 @@
             <div class="d-flex align-items-center gap-1 my-3 mt-4">
                 <a class="pe-3" asp-action="VehiclesList">Back to List</a>
                 <a class="btn btn-primary px-3" asp-controller="Feedbacks" asp-action="Create" asp-route-id="@Model?.Id">Leave a feedback</a>
+                <button onclick="window.print()" class="btn btn-primary">Print Receipt</button>
             </div>
         </div>
     </div>

@@ -141,7 +141,7 @@ namespace Garage2._0.Controllers
                 Color = v.Color,
                 NumberOfWheels = v.NumberOfWheels,
                 ArrivalTime = v.ArrivalTime,
-                CheckoutTime = v.CheckoutTime == DateTime.MinValue ? "Vehicle is still in parking" : v.CheckoutTime.ToString("yyyy-MM-dd HH:mm:ss")
+                CheckoutTime = v.CheckoutTime == DateTime.MinValue ? "Vehicle is still in the parking" : v.CheckoutTime.ToString("yyyy-MM-dd HH:mm:ss")
             })
             .FirstOrDefaultAsync();
 
